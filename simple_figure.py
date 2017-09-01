@@ -9,8 +9,9 @@ x = np.array(range(100))
 y = np.sin(x/100)
 
 fig = {
-        'data': [   go.Scatter(x=x,y=y),
-                    go.Scatter(x=x,y=2*y)
+        'data': [   go.Scatter(x=x,y=y,name='line'),
+                    go.Scatter(x=x,y=2*y, mode='markers',name='dot'),
+
                 ],
         'layout' : go.Layout(
             xaxis={'title': 't'},
