@@ -8,22 +8,25 @@ import numpy as np
 
 app = dash.Dash()
 
+
+x = np.linspace(0, 2, num=100)
+
 app.layout = html.Div(
     [
         dcc.Graph(id='graph'),
-        dcc.Slider(id='scale', value=1)
+        dcc.Slider(id='scale', value=x[0], min= min(x), max = max(x), step=x[1]-x[0])
     ]
 )
 
-x = np.array(range(100))
-
 @app.callback(Output('graph','figure'),[Input('scale','value')])
-def update(freq):
-    y = np.sin(freq * x)
+def update(until):
+    y = - x * np.log(x)
 
+    xx, yy = x[x<until], y[x<until]
+    
     return {
         'data': [   go.Scatter(x=x,y=y),
-                    go.Scatter(x=x,y=2*y)
+                    go.Scatter(x=xx,y=yy, fill='tozeroy')
                 ],
         'layout' : go.Layout(
             xaxis={'title': 't'},
